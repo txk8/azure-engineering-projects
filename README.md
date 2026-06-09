@@ -22,7 +22,7 @@ A static website deployed to Azure Blob Storage, distributed globally via Azure 
 - A registered domain name
 ## Deployment
  
-### Step 1 — Create a Resource Group
+### Step 1 - Create a Resource Group
  
 ```bash
 az group create \
@@ -30,7 +30,7 @@ az group create \
   --location uksouth
 ```
  
-### Step 2 — Create a Storage Account
+### Step 2 - Create a Storage Account
  
 ```bash
 az storage account create \
@@ -42,7 +42,7 @@ az storage account create \
   --allow-blob-public-access true
 ```
  
-### Step 3 — Enable Static Website Hosting
+### Step 3 - Enable Static Website Hosting
  
 In the Azure Portal:
  
@@ -61,7 +61,7 @@ az storage blob service-properties update \
   --404-document 404.html
 ```
  
-### Step 4 — Upload the Website
+### Step 4 - Upload the Website
  
 In the Portal: navigate to **Containers** → `$web` → **Upload**, set blob name to `index.html` and content type to `text/html`.
  
@@ -76,7 +76,7 @@ az storage blob upload \
   --content-type 'text/html'
 ```
  
-### Step 5 — Create an Azure Front Door Profile
+### Step 5 - Create an Azure Front Door Profile
  
 ```bash
 az afd profile create \
@@ -85,7 +85,7 @@ az afd profile create \
   --sku Standard_AzureFrontDoor
 ```
  
-### Step 6 — Create a Front Door Endpoint
+### Step 6 - Create a Front Door Endpoint
  
 ```bash
 az afd endpoint create \
@@ -96,7 +96,7 @@ az afd endpoint create \
  
 Note the **Endpoint hostname** from the output — it will look like `<name>.z03.azurefd.net`.
  
-### Step 7 — Create an Origin Group
+### Step 7 - Create an Origin Group
  
 ```bash
 az afd origin-group create \
@@ -111,7 +111,7 @@ az afd origin-group create \
   --successful-samples-required 3
 ```
  
-### Step 8 — Create an Origin
+### Step 8 - Create an Origin
  
 ```bash
 az afd origin create \
@@ -127,7 +127,7 @@ az afd origin create \
   --weight 1000
 ```
  
-### Step 9 — Create a Route
+### Step 9 - Create a Route
  
 ```bash
 az afd route create \
@@ -143,7 +143,7 @@ az afd route create \
   --link-to-default-domain Enabled
 ```
  
-### Step 10 — Add a Custom Domain
+### Step 10 - Add a Custom Domain
  
 ```bash
 az afd custom-domain create \
@@ -172,7 +172,7 @@ Add the following records in your DNS registrar:
 | CNAME | www          | `<YOUR_ENDPOINT>.z03.azurefd.net`  |
 | TXT   | _dnsauth.www | `<VALIDATION_TOKEN_FROM_ABOVE>`    |
  
-### Step 11 — Link Custom Domain to Route
+### Step 11 - Link Custom Domain to Route
  
 ```bash
 az afd route update \
@@ -218,4 +218,7 @@ This will delete all resources, assuming they are all in the same resource group
 - Global content delivery with Azure Front Door Standard
 - Managed SSL/TLS certificate provisioning via Front Door
 - Custom domain validation using DNS TXT records
- 
+
+ ## Cost Management
+ - Setting up a budget alert is sensible to manage the cost of the project. This is mostly from azure front door rather than the storage account.
+ - A more cost effective alternative to using front door would be to setup a free cloudflare account.
