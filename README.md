@@ -50,7 +50,7 @@ In the Azure Portal:
 2. Toggle to **Enabled**
 3. Set **Index document name**: `index.html`
 4. Set **Error document path**: `404.html`
-5. Save — note the **Primary endpoint** URL
+5. Save - note the **Primary endpoint** URL
 Or via CLI:
  
 ```bash
@@ -94,7 +94,7 @@ az afd endpoint create \
   --resource-group <YOUR_RESOURCE_GROUP>
 ```
  
-Note the **Endpoint hostname** from the output — it will look like `<name>.z03.azurefd.net`.
+Note the **Endpoint hostname** from the output - it will look like `<name>.z03.azurefd.net`.
  
 ### Step 7 - Create an Origin Group
  
@@ -209,9 +209,9 @@ This will delete all resources, assuming they are all in the same resource group
  
 ## Issues Encountered
  
-- **Subscription propagation delay** — a newly created Pay As You Go subscription was not immediately accessible via the Azure CLI, returning `SubscriptionNotFound` errors. Resolved by being patient and coming back to work on this after a coffee.
-- **CDN region error** — Azure Front Door profiles must be deployed to the `global` region; I had used `uksouth` without realising.
-- **Origin group health probe** — the `--probe-path /` parameter is required when health probes are enabled; omitting it causes a validation error.
+- **Subscription propagation delay** - a newly created Pay As You Go subscription was not immediately accessible via the Azure CLI, returning `SubscriptionNotFound` errors. Resolved by being patient and coming back to work on this after a coffee.
+- **CDN region error** -  Azure Front Door profiles must be deployed to the `global` region; I had used `uksouth` without realising.
+- **Origin group health probe** - the `--probe-path /` parameter is required when health probes are enabled; omitting it causes a validation error.
 ## Learning Objectives
  
 - Static website hosting on Azure Blob Storage
